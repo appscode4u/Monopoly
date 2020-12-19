@@ -14,7 +14,17 @@ namespace GraPlanszowa_lab1
 
         public void Run()
         {
-            setPlayers();
+            //setPlayers();
+            //startNewGame();
+        }
+        
+        public void addPlayer(Player p)
+        {
+            players.Add(p);
+        }
+
+        public void StartGame()
+        {
             startNewGame();
         }
 

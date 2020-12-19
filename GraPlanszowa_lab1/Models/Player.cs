@@ -7,7 +7,7 @@ namespace GraPlanszowa_lab1
     class Player : Person
     {
         public bool IsHuman { get; set; }
-        public List<Gap> Gaps { get; set; }
+        public List<Gap> OwnedCities { get; set; }
         public long Wallet { get; set; }
 
         public int GamePosition { get; set; }
