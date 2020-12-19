@@ -5,7 +5,6 @@ namespace GraPlanszowa_lab1
 {
     class Game
     {
-        Random rnd = new Random();
         private int GapsCount;
 
         public List<Gap> gameMatrix;
@@ -61,9 +60,9 @@ namespace GraPlanszowa_lab1
         }
 
         public void trowCubforMove(Player curPlayer)
-        {  
+        {
             //calculate possition
-            int aTraw = rnd.Next(6) + 1;
+            int aTraw = Cube.getInstance(6).Lotery(); //retriev random number 1-6 from singleton pattern implemented in class Cube
             int move = curPlayer.GamePosition + aTraw;
             if (move >= GapsCount)
             {
