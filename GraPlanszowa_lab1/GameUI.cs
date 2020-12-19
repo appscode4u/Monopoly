@@ -20,7 +20,7 @@ namespace GraPlanszowa_lab1
         {
 
             //initialize amount of starting money
-            if (!startAmountOfMonay()) { exitGame(1); }
+            if (!startAmountOfMoney()) { exitGame(1); }
 
             //initialize number of players
             if (!setPlayers()) { exitGame(2); }
@@ -41,7 +41,7 @@ namespace GraPlanszowa_lab1
             Environment.Exit(0); //close program
         }
 
-        private bool startAmountOfMonay()
+        private bool startAmountOfMoney()
         {
             Console.WriteLine("Type amount of starting money for players: ");
             if (Int32.TryParse(Console.ReadLine(), out int startMoney))
