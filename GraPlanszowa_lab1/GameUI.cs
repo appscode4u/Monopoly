@@ -121,7 +121,7 @@ namespace GraPlanszowa_lab1
                     $"obtain: {game.players[i].Wallet} USD, " +
                     $"stoped at position: {game.players[i].GamePosition}, " +
                     $"is human? {game.players[i].IsHuman}, " +
-                    $"bought {GameHelper.GetBoughtCities(p)} cities");
+                    $"bought {game.GetBoughtCities(p)} cities");
                 i++;
             }
         }

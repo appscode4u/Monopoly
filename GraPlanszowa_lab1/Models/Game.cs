@@ -2,6 +2,7 @@
 using GraPlanszowa_lab1.Helpers;
 using GraPlanszowa_lab1.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GraPlanszowa_lab1
 {
@@ -173,5 +174,10 @@ namespace GraPlanszowa_lab1
             p.Wallet -= gameMatrix[p.GamePosition].HOUSECOST; //decrease player's amount of money
         }
 
+
+        public int GetBoughtCities(Player p)
+        {
+            return gameMatrix.Where(own => own.OWNER == p).Count(); ;
+        }
     }
 }

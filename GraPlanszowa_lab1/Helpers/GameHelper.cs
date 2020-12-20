@@ -24,18 +24,6 @@ namespace GraPlanszowa_lab1.Helpers
             return r.Next(15,100);
         }
 
-        public static int GetBoughtCities(Player p)
-        {
-            if (p.OwnedCities == null)
-            {
-                return 0;
-            }
-            else
-            {
-                return p.OwnedCities.Count;
-            }
-        }
-
         public static bool CheckIfPlayerWantToBuyCity()
         {
             return true; //TODO lotery of joice
