@@ -12,6 +12,9 @@ namespace GraPlanszowa_lab1
             UI.GameInit();           //initialize game basic settings
             UI.SimulationGame();     //start simulation
             UI.getScore();           //display game scores
+
+            Console.WriteLine();
+            UI.ListOwnedCitiesDetails(); //display cities, theirs owners and number of houses
         }
     }
 }

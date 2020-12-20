@@ -61,11 +61,11 @@ namespace GraPlanszowa_lab1
             if (i > 0 && i <= 4)
             {
 
-            /*    //************************* JUST FOR TESTST, uncomment this block to enable automated user create
+                //************************* JUST FOR TESTST, uncomment this block to enable automated user create
                 setPlayersWithoutConsoleForTest(i);
                 return true;
                 //*****************************************
-            */
+            
 
                 for (int k = 0; k < i; k++)
                 {
@@ -142,13 +142,22 @@ namespace GraPlanszowa_lab1
             {
                 int k = 1;
                 foreach (Player p in game.players)
-                {   
+                {
                     if (p.JailTurns == 0) { game.trowCubforMove(p); }
                     else { p.JailTurns--; }
-                    Console.WriteLine($"Player: {p.Name} moved to gap: {p.GamePosition}");
+                    Console.WriteLine($"Player: {p.Name} moved to gap: {p.GamePosition}, gap description: {game.GetPositionName(p.GamePosition)} wallet: {p.Wallet}");
                     k++;
                     System.Threading.Thread.Sleep(250);
                 }
+            }
+        }
+
+        public void ListOwnedCitiesDetails()
+        {
+            foreach (var item in game.gameMatrix)
+            {
+                if (item.OWNER != null) { 
+                    Console.WriteLine($"City: {item.NAME} owner: {item.OWNER.Name} number of houses: {item.MULTIPLIER}");}
             }
         }
     }

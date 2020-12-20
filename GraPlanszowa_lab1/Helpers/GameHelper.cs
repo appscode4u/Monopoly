@@ -35,5 +35,15 @@ namespace GraPlanszowa_lab1.Helpers
                 return p.OwnedCities.Count;
             }
         }
+
+        public static bool CheckIfPlayerWantToBuyCity()
+        {
+            return true; //TODO lotery of joice
+        }
+
+        internal static bool CheckIfPlayerWantToBuyHouse()
+        {
+            return true; //TODO lotery of joice
+        }
     }
 }
