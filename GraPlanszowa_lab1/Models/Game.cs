@@ -49,7 +49,7 @@ namespace GraPlanszowa_lab1
                         //check if owner is the same that curPlayer
                         if(owner == curPlayer)
                         {
-                            //check if player have enouth money to buy house and if there is a space for new house
+                            //check if player has enouth money to buy house and if there is a space for new house
                             if (CheckIfPlayerHaveMoneyForHouse(curPlayer) && CheckIfHouseCouldBeBuy(curPlayer))
                             {
                                 //check if player want to buy a house
@@ -67,7 +67,7 @@ namespace GraPlanszowa_lab1
                     }
                     else //currently no owner at possition
                     {
-                        //check if player have enouth money
+                        //check if player has enouth money to buy city
                         if (CheckIfPlayerHaveMoneyForCity(curPlayer))
                         {
                             //check if player want to buy city
@@ -76,7 +76,7 @@ namespace GraPlanszowa_lab1
                                 //invoke buy city logic
                                 PlayerBuyCity(curPlayer);
 
-                                //check if player have enouth money to buy house and if there is a space for new house
+                                //check if player has enouth money to buy house and if there is a space for new house
                                 if (CheckIfPlayerHaveMoneyForHouse(curPlayer)&&CheckIfHouseCouldBeBuy(curPlayer))
                                 {
                                     //check if player want to buy a house
