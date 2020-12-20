@@ -5,13 +5,13 @@ namespace GraPlanszowa_lab1
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             GameUI UI = new GameUI(); //initialize UI object
 
             UI.GameInit();           //initialize game basic settings
             UI.SimulationGame();     //start simulation
-            UI.getScore();           //display game scores
+            UI.GetScore();           //display game scores
 
             Console.WriteLine();
             UI.ListOwnedCitiesDetails(); //display cities, theirs owners and number of houses

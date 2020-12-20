@@ -10,7 +10,7 @@ namespace GraPlanszowa_lab1
         public bool IsHuman { get; set; }
         public long Wallet { get; set; }
 
-        public int GamePosition { get; set; }
+        public int GamePosition { get; set; } = 0;
 
         public int JailTurns { get; set; } = 0;
 
@@ -21,7 +21,6 @@ namespace GraPlanszowa_lab1
             Age = age;
             IsHuman = isHuman;
             Wallet = startAmounOfMoney;
-            GamePosition = 0;
         }
     }
 }

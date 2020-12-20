@@ -7,7 +7,7 @@ namespace GraPlanszowa_lab1
     class GameUI
     {
         private int startMoney;
-        Game game;
+        protected Game game;
 
         public GameUI()
         {
@@ -20,14 +20,14 @@ namespace GraPlanszowa_lab1
         {
 
             //initialize amount of starting money
-            if (!startAmountOfMoney()) { exitGame(1); }
+            if (!StartAmountOfMoney()) { ExitGame(1); }
 
             //initialize number of players
-            if (!setPlayers()) { exitGame(2); }
+            if (!SetPlayers()) { ExitGame(2); }
 
         }
 
-        private void exitGame(int err)
+        private void ExitGame(int err)
         {
             string message = "";
 
@@ -41,7 +41,7 @@ namespace GraPlanszowa_lab1
             Environment.Exit(0); //close program
         }
 
-        private bool startAmountOfMoney()
+        private bool StartAmountOfMoney()
         {
             Console.WriteLine("Type amount of starting money for players: ");
             if (Int32.TryParse(Console.ReadLine(), out int startMoney))
@@ -52,7 +52,7 @@ namespace GraPlanszowa_lab1
             return false;
         }
 
-        private bool setPlayers()
+        private bool SetPlayers()
         {
 
             Console.WriteLine("Number of players (1-4)?: ");
@@ -62,7 +62,7 @@ namespace GraPlanszowa_lab1
             {
 
                 //************************* JUST FOR TESTST, uncomment this block to enable automated user create
-                setPlayersWithoutConsoleForTest(i);
+                SetPlayersWithoutConsoleForTest(i);
                 return true;
                 //*****************************************
             
@@ -93,25 +93,25 @@ namespace GraPlanszowa_lab1
                         return false;
                     }
 
-                    game.addPlayer(new Player(name, age, human, this.startMoney));
+                    game.AddPlayer(new Player(name, age, human, this.startMoney));
                 }
                 return true;
             }
             return false; //something goes wrong; return false to stop program
         }
 
-        private void setPlayersWithoutConsoleForTest(int playersCount)
+        private void SetPlayersWithoutConsoleForTest(int playersCount)
         {
             for (int i = 0; i < playersCount; i++)
             {   
                 bool human = GameHelper.GetRandomHumanity();
                 int age = GameHelper.GetRandomAge();
                 string name = GameHelper.GetRandomName(human);
-                game.addPlayer(new Player(name, age, human, this.startMoney));
+                game.AddPlayer(new Player(name, age, human, this.startMoney));
             }
         }
 
-        internal void getScore()
+        internal void GetScore()
         {
             Console.WriteLine("\n");
             int i = 0;
@@ -121,7 +121,7 @@ namespace GraPlanszowa_lab1
                     $"obtain: {game.players[i].Wallet} USD, " +
                     $"stoped at position: {game.players[i].GamePosition}, " +
                     $"is human? {game.players[i].IsHuman}, " +
-                    $"bought {game.GetBoughtCities(p)} cities");
+                    $"bought {game.GetBoughtCitiesCount(p)} cities");
                 i++;
             }
         }
@@ -131,7 +131,7 @@ namespace GraPlanszowa_lab1
             Console.WriteLine("Type number of total simulations:");
             if (!Int32.TryParse(Console.ReadLine(), out int turns))
             {
-                exitGame(3); //exit if an error occurred
+                ExitGame(3); //exit if an error occurred
             }
 
             //starting a game
@@ -143,7 +143,7 @@ namespace GraPlanszowa_lab1
                 int k = 1;
                 foreach (Player p in game.players)
                 {
-                    if (p.JailTurns == 0) { game.trowCubforMove(p); }
+                    if (p.JailTurns == 0) { game.TrowCubforMove(p); }
                     else { p.JailTurns--; }
                     Console.WriteLine($"Player: {p.Name} moved to gap: {p.GamePosition}, gap description: {game.GetPositionName(p.GamePosition)} wallet: {p.Wallet}");
                     k++;

@@ -21,14 +21,14 @@ namespace GraPlanszowa_lab1
             //startNewGame();
         }
         
-        public void addPlayer(Player p)
+        public void AddPlayer(Player p)
         {
             players.Add(p);
         }
 
         public void StartGame()
         {
-            startNewGame();
+            StartNewGame();
         }
 
         /*private void setPlayers()
@@ -37,14 +37,14 @@ namespace GraPlanszowa_lab1
             players.Add(new Player("RoboBoy", 135, false, 2000));
         }*/
 
-        private void startNewGame()
+        private void StartNewGame()
         {
             gameMatrix = new Matrix().newMatrix();
             GapsCount = gameMatrix.Count;
         }
 
 
-        private void checkGap(Player curPlayer)
+        private void CheckGap(Player curPlayer)
         {
             //check type of stopped place of the player
             switch (gameMatrix[curPlayer.GamePosition].TYPE)
@@ -54,7 +54,7 @@ namespace GraPlanszowa_lab1
                     break; 
                 case 1: 
                     //check player possition is already owned
-                    Player owner = isOwned(curPlayer);
+                    Player owner = IsOwned(curPlayer);
                     
                     if (owner!=null) //there is an owner
                     {
@@ -71,7 +71,7 @@ namespace GraPlanszowa_lab1
                     else //currently no owner at possition
                     {
                         //check if player have enouth money
-                        if (checkIfPlayerHaveMoneyForCity(curPlayer))
+                        if (CheckIfPlayerHaveMoneyForCity(curPlayer))
                         {
                             //check if player want to buy city
                             if (GameHelper.CheckIfPlayerWantToBuyCity())
@@ -80,7 +80,7 @@ namespace GraPlanszowa_lab1
                                 PlayerBuyCity(curPlayer);
 
                                 //check if player have enouth money to buy house and if there is a space for new house
-                                if (checkIfPlayerHaveMoneyForHouse(curPlayer)&&checkIfHouseCouldBeBuy(curPlayer))
+                                if (CheckIfPlayerHaveMoneyForHouse(curPlayer)&&CheckIfHouseCouldBeBuy(curPlayer))
                                 {
                                     //check if player want to buy a house
                                     if (GameHelper.CheckIfPlayerWantToBuyHouse())
@@ -110,7 +110,7 @@ namespace GraPlanszowa_lab1
 
         }
 
-        public void trowCubforMove(Player curPlayer)
+        public void TrowCubforMove(Player curPlayer)
         {
             //calculate possition
             int aTraw = Cube.getInstance(6).Lotery(); //retrieve random number 1-6 from singleton pattern implemented in class Cube
@@ -122,10 +122,10 @@ namespace GraPlanszowa_lab1
             }
             else { curPlayer.GamePosition = move; }
 
-            checkGap(curPlayer);
+            CheckGap(curPlayer);
         }
 
-        public int getGapsCount()
+        public int GetGapsCount()
         {
             return GapsCount;
         }
@@ -135,7 +135,7 @@ namespace GraPlanszowa_lab1
             return i > -1 && i <= gameMatrix.Count ? gameMatrix[i].NAME : "";
         }
 
-        public Player isOwned(Player p)
+        public Player IsOwned(Player p)
         {
             if (gameMatrix[p.GamePosition].OWNER!=null)
             {
@@ -144,13 +144,13 @@ namespace GraPlanszowa_lab1
             return null;
         }
 
-        private bool checkIfPlayerHaveMoneyForCity(Player p)
+        private bool CheckIfPlayerHaveMoneyForCity(Player p)
         {
             if (p.Wallet >= gameMatrix[p.GamePosition].CITYCOST) { return true; }
             return false;
         }
 
-        private bool checkIfPlayerHaveMoneyForHouse(Player p)
+        private bool CheckIfPlayerHaveMoneyForHouse(Player p)
         {
             if (p.Wallet >= gameMatrix[p.GamePosition].HOUSECOST) { return true; }
             return false;
@@ -162,7 +162,7 @@ namespace GraPlanszowa_lab1
             p.Wallet -= (long)gameMatrix[p.GamePosition].CITYCOST; //decrase amount of money
         }
 
-        private bool checkIfHouseCouldBeBuy(Player p)
+        private bool CheckIfHouseCouldBeBuy(Player p)
         {
             if (gameMatrix[p.GamePosition].MULTIPLIER <= Settings.MaxNumberOfHouses) { return true; }
             return false;
@@ -175,7 +175,7 @@ namespace GraPlanszowa_lab1
         }
 
 
-        public int GetBoughtCities(Player p)
+        public int GetBoughtCitiesCount(Player p)
         {
             return gameMatrix.Where(own => own.OWNER == p).Count(); ;
         }
