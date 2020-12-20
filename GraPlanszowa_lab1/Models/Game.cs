@@ -14,12 +14,6 @@ namespace GraPlanszowa_lab1
         public List<Player> players = new List<Player>();
 
         public Game() { }
-
-        public void Run()
-        {
-            //setPlayers();
-            //startNewGame();
-        }
         
         public void AddPlayer(Player p)
         {
@@ -30,12 +24,6 @@ namespace GraPlanszowa_lab1
         {
             StartNewGame();
         }
-
-        /*private void setPlayers()
-        {
-            players.Add(new Player("Maciek", 37, true, 2000));
-            players.Add(new Player("RoboBoy", 135, false, 2000));
-        }*/
 
         private void StartNewGame()
         {
@@ -58,15 +46,24 @@ namespace GraPlanszowa_lab1
                     
                     if (owner!=null) //there is an owner
                     {
-                        /*TODO:
-                            check if owner is the same that curPlayer
-
-                            yes
-                                - check if player have enough money to buy next house
-                                - check if player want to buy this house
-                            no
-                                - check how many player have to pay the other player
-                        */
+                        //check if owner is the same that curPlayer
+                        if(owner == curPlayer)
+                        {
+                            //check if player have enouth money to buy house and if there is a space for new house
+                            if (CheckIfPlayerHaveMoneyForHouse(curPlayer) && CheckIfHouseCouldBeBuy(curPlayer))
+                            {
+                                //check if player want to buy a house
+                                if (GameHelper.CheckIfPlayerWantToBuyHouse())
+                                {
+                                    //invoke buy house logic
+                                    PlayerBuyAhouse(curPlayer);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            SubAddMoneyPlayerStayAtOwnedGap(owner, curPlayer);
+                        }
                     }
                     else //currently no owner at possition
                     {
@@ -108,6 +105,12 @@ namespace GraPlanszowa_lab1
                     break;
             }
 
+        }
+
+        private void SubAddMoneyPlayerStayAtOwnedGap(Player owner, Player curPlayer)
+        {
+            owner.Wallet += gameMatrix[curPlayer.GamePosition].REWARD * gameMatrix[curPlayer.GamePosition].MULTIPLIER;
+            curPlayer.Wallet -= gameMatrix[curPlayer.GamePosition].REWARD * gameMatrix[curPlayer.GamePosition].MULTIPLIER;
         }
 
         public void TrowCubforMove(Player curPlayer)

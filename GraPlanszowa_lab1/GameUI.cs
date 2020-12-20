@@ -154,6 +154,7 @@ namespace GraPlanszowa_lab1
 
         public void ListOwnedCitiesDetails()
         {
+            Console.WriteLine();
             foreach (var item in game.gameMatrix)
             {
                 if (item.OWNER != null) { 
