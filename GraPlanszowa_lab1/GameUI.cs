@@ -1,6 +1,7 @@
 ﻿using GraPlanszowa_lab1.Helpers;
+using GraPlanszowa_lab1.Models;
 using System;
-
+using System.Collections.Generic;
 
 namespace GraPlanszowa_lab1
 {
@@ -8,13 +9,36 @@ namespace GraPlanszowa_lab1
     {
         private int startMoney;
         protected Game game;
+        public MovesHistory GameHistory;
+        private List<HistoryDetail> PlayerHistory;
 
         public GameUI()
         {
             game = new Game();
+
+            GameHistory = new MovesHistory();
         }
 
         public void GameInit() => InitializeGameLogicFlow();
+
+        internal void DisplayGameHistoryForEachPlayer()
+        {
+            Console.WriteLine($"\nHistory of moves (player count: {GameHistory.History.Count}):\n");
+
+            foreach (var key in GameHistory.History.Keys)
+            {
+                Console.WriteLine($"Player: {key}");
+                PlayerHistory = GameHistory.History[key];
+
+                int i = 0;
+                foreach (var ph in PlayerHistory)
+                {
+                    Console.WriteLine($"   Move {i}: game position: {ph.MoveIntoPosition}, wallet value: {ph.Wallet}");
+
+                    i++;
+                }
+            }
+        }
 
         private void InitializeGameLogicFlow()
         {
@@ -34,7 +58,7 @@ namespace GraPlanszowa_lab1
             switch(err){
                 case 1: message = "Starting amount of money must be an Integer value"; break;
                 case 2: message = "Exit Game because of wrong game settings"; break;
-                case 3: message = "Proble number of turns were defined incorrectly"; break;
+                case 3: message = "Propable number of turns were defined incorrectly"; break;
             }
 
             Console.WriteLine(message);
@@ -94,6 +118,11 @@ namespace GraPlanszowa_lab1
                     }
 
                     game.AddPlayer(new Player(name, age, human, this.startMoney));
+
+                    PlayerHistory = new List<HistoryDetail>();
+                    PlayerHistory.Add(new HistoryDetail { MoveIntoPosition = 0, Wallet = this.startMoney });
+                    GameHistory.History.Add(name, PlayerHistory);
+
                 }
                 return true;
             }
@@ -107,7 +136,18 @@ namespace GraPlanszowa_lab1
                 bool human = GameHelper.GetRandomHumanity();
                 int age = GameHelper.GetRandomAge();
                 string name = GameHelper.GetRandomName(human);
+                
+                //disable the same name for players; prevent for the same key in dictionary
+                while (GameHistory.History.ContainsKey(name)){
+                    name = GameHelper.GetRandomName(human);
+                }
+            
                 game.AddPlayer(new Player(name, age, human, this.startMoney));
+
+                PlayerHistory = new List<HistoryDetail>();
+                PlayerHistory.Add(new HistoryDetail { MoveIntoPosition = 0, Wallet = this.startMoney });
+                GameHistory.History.Add(name, PlayerHistory);
+
             }
         }
 
@@ -146,6 +186,12 @@ namespace GraPlanszowa_lab1
                     if (p.JailTurns == 0) { game.TrowCubforMove(p); }
                     else { p.JailTurns--; }
                     Console.WriteLine($"Player: {p.Name} moved to gap: {p.GamePosition}, gap description: {game.GetPositionName(p.GamePosition)} wallet: {p.Wallet}");
+
+                    //support for collect history
+                        PlayerHistory = GameHistory.History[p.Name];
+                        PlayerHistory.Add(new HistoryDetail { MoveIntoPosition = p.GamePosition, Wallet = p.Wallet });
+                    //
+
                     k++;
                     System.Threading.Thread.Sleep(250);
                 }
